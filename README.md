@@ -12,7 +12,7 @@ Contributions are still welcome to ship it into the wild ! 🚀
 
 ## Demonstration
 
-You can find a demo [here](https://react-transformer.bmgr.me/demo/) and the source code on [GitHub](https://github.com/publica-re/react-transformer/blob/master/example/) !
+You can find a demo [here](https://react-transformer.publica.re/demo/) and the source code on [GitHub](https://github.com/publica-re/react-transformer/blob/master/example/) !
 
 ## Install
 
@@ -91,7 +91,7 @@ export default class App extends React.Component<{ document: XMLDocument }> {
 
 ### Go futher
 
-You can take a look at [GitHub](https://github.com/publica-re/react-transformer/blob/master/example/) for an example or the [documentation](https://react-transformer.bmgr.me) !
+You can take a look at [GitHub](https://github.com/publica-re/react-transformer/blob/master/example/) for an example or the [documentation](https://react-transformer.publica.re) !
 
 ## License
 

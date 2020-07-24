@@ -2,8 +2,17 @@
   "name": "react-transformer",
   "version": "0.1.0",
   "description": "A XSLT-inspired XML transformer for React",
-  "author": "David Baumgartner <dv@bmgr.me>",
+  "author": {
+    "name": "David Baumgartner",
+    "email": "dv@bmgr.me",
+    "url": "https://dv.bmgr.me"
+  },
   "license": " GPL-3.0-or-later",
+  "homepage": "https://react-transformer.publica.re/",
+  "bugs": {
+    "url": "https://github.com/publica-re/react-transformer/issues",
+    "email": "dv@bmgr.me"
+  },
   "repository": "publica-re/react-transformer",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
