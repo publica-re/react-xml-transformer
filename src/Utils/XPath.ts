@@ -51,7 +51,7 @@ export function computeXPathFromElement(contextNode: Node): XPath {
       case Node.COMMENT_NODE:
       case Node.DOCUMENT_TYPE_NODE:
         throw TypeError(
-          `react-transformer: you shouldn't try to render the XPath of a comment node and/or a processing instruction.`
+          `react-xml-transformer: you shouldn't try to render the XPath of a comment node and/or a processing instruction.`
         );
       case Node.DOCUMENT_FRAGMENT_NODE:
         break;

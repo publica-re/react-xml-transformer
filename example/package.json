@@ -1,5 +1,5 @@
 {
-  "name": "react-transformer-example",
+  "name": "react-processor-example",
   "homepage": ".",
   "version": "0.0.0",
   "private": true,
@@ -21,7 +21,7 @@
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
     "react-static": "^7.4.2",
-    "react-transformer": "link:..",
+    "react-xml-transformer": "link:..",
     "typescript": "link:../node_modules/typescript"
   },
   "devDependencies": {

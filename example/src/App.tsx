@@ -1,6 +1,6 @@
 import React from "react";
 import ctx from "./Components";
-import Transformer from "react-transformer";
+import Transformer from "react-xml-transformer";
 
 export default class App extends React.Component<
   {},

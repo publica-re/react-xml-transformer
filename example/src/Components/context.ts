@@ -1,4 +1,4 @@
-import Transformer from "react-transformer";
+import Transformer from "react-xml-transformer";
 
 const ctx = new Transformer.Context();
 

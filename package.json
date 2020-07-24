@@ -1,5 +1,5 @@
 {
-  "name": "react-transformer",
+  "name": "react-xml-transformer",
   "version": "0.1.0",
   "description": "A XSLT-inspired XML transformer for React",
   "author": {
@@ -8,12 +8,12 @@
     "url": "https://dv.bmgr.me"
   },
   "license": " GPL-3.0-or-later",
-  "homepage": "https://react-transformer.publica.re/",
+  "homepage": "https://react-xml-transformer.publica.re/",
   "bugs": {
-    "url": "https://github.com/publica-re/react-transformer/issues",
+    "url": "https://github.com/publica-re/react-xml-transformer/issues",
     "email": "dv@bmgr.me"
   },
-  "repository": "publica-re/react-transformer",
+  "repository": "publica-re/react-xml-transformer",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",

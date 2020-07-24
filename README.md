@@ -1,8 +1,8 @@
-# react-transformer ⚙
+# react-xml-transformer ⚙
 
 > A XSLT-inspired XML transformer for React
 
-[![NPM](https://img.shields.io/npm/v/react-transformer.svg)](https://www.npmjs.com/package/react-transformer) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-xml-transformer.svg)](https://www.npmjs.com/package/react-xml-transformer) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Note
 
@@ -12,12 +12,12 @@ Contributions are still welcome to ship it into the wild ! 🚀
 
 ## Demonstration
 
-You can find a demo [here](https://react-transformer.publica.re/demo/) and the source code on [GitHub](https://github.com/publica-re/react-transformer/blob/master/example/) !
+You can find a demo [here](https://react-xml-transformer.publica.re/demo/) and the source code on [GitHub](https://github.com/publica-re/react-xml-transformer/blob/master/example/) !
 
 ## Install
 
 ```bash
-yarn add react-transformer
+yarn add react-xml-transformer
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ First, you have to note that we rely on a global context to which the templates 
 We thus recommend to create a file `context.ts` with the following code:
 
 ```ts
-import Transformer from "react-transformer";
+import Transformer from "react-xml-transformer";
 const ctx = new Transformer.Context();
 export default ctx;
 ```
@@ -38,7 +38,7 @@ When that's done, you can create your main component that imports your context. 
 
 ```ts
 import React from "react";
-import Transformer from "react-transformer";
+import Transformer from "react-xml-transformer";
 import ctx from "./context";
 
 export default class App extends React.Component<{ document: XMLDocument }> {
@@ -59,7 +59,7 @@ You're now ready to implement your first template ! In order to do that, just in
 
 ```ts
 import * as React from "react";
-import Transformer from "react-transformer";
+import Transformer from "react-xml-transformer";
 import ctx from "./context";
 
 export default class Para extends Transformer.Template {
@@ -81,7 +81,7 @@ It now only remains to import our newly defined template in our `App`, and we're
 
 ```ts
 ...
-import Transformer from "react-transformer";
+import Transformer from "react-xml-transformer";
 import ctx from "./context";
 import "./Para";
 
@@ -91,7 +91,7 @@ export default class App extends React.Component<{ document: XMLDocument }> {
 
 ### Go futher
 
-You can take a look at [GitHub](https://github.com/publica-re/react-transformer/blob/master/example/) for an example or the [documentation](https://react-transformer.publica.re) !
+You can take a look at [GitHub](https://github.com/publica-re/react-xml-transformer/blob/master/example/) for an example or the [documentation](https://react-xml-transformer.publica.re) !
 
 ## License
 
@@ -112,4 +112,4 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 ## Contributing
 
-I welcome happily contributions to pull request through [GitHub](https://github.com/publica-re/react-transformer).
+I welcome happily contributions to pull request through [GitHub](https://github.com/publica-re/react-xml-transformer).

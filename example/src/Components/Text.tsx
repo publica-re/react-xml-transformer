@@ -1,6 +1,6 @@
 import * as React from "react";
 import ctx from "./context";
-import Transformer from "react-transformer";
+import Transformer from "react-xml-transformer";
 
 export default class Text extends Transformer.Template {
   render() {
