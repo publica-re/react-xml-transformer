@@ -1,0 +1,4 @@
+<root xmlns="https://example.com/ns" xmlns:p="https://example.com/ns">
+  <para>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere sint ipsa reprehenderit exercitationem? Inventore ea quidem sapiente beatae nobis commodi enim incidunt, sit sequi? Consectetur sed sapiente officia in ipsa.</para>
+  <title clicked="You clicked me!">Click me!</title>
+</root>

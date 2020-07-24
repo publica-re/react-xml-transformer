@@ -1,10 +1,19 @@
-import * as React from 'react'
-import styles from './styles.module.css'
+import ApplyTemplates from "./ApplyTemplates";
+import CallTemplate from "./CallTemplate";
+import ValueOf from "./ValueOf";
+import Template from "./Template";
+import Stylesheet from "./Stylesheet";
+import If from "./If";
+import ForEach from "./ForEach";
+import { Context } from "./Utils/Context";
 
-interface Props {
-  text: string
-}
-
-export const ExampleComponent = ({ text }: Props) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+export default {
+  ApplyTemplates,
+  CallTemplate,
+  ValueOf,
+  Template,
+  Stylesheet,
+  If,
+  ForEach,
+  Context,
+};
