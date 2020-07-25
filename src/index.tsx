@@ -5,6 +5,7 @@ import Template from "./Template";
 import Stylesheet from "./Stylesheet";
 import If from "./If";
 import ForEach from "./ForEach";
+import Choose from "./Choose";
 import { Context } from "./Utils/Context";
 
 export default {
@@ -15,5 +16,6 @@ export default {
   Stylesheet,
   If,
   ForEach,
+  Choose,
   Context,
 };
