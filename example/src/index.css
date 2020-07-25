@@ -12,7 +12,7 @@ body {
 }
 
 .App {
-  width: 50vw;
+  width: max(50vw, 90vmin);
 }
 
 .App footer {
@@ -21,4 +21,20 @@ body {
 
 .App .dont-click {
   cursor: not-allowed;
+}
+
+.App figure {
+  background-color: whitesmoke;
+  padding: 2vmin;
+  text-align: center;
+}
+
+.App figure h2 {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.App figure h2::before {
+  content: "Figure: ";
+  font-weight: bold;
 }
