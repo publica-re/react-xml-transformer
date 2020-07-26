@@ -1,5 +1,6 @@
 import * as React from "react";
 import { XPath, XPathDataType } from "../Utils/Types";
+import Updatable from "../Updatable";
 import { Context } from "../Utils/Context";
 
 /**
@@ -57,12 +58,16 @@ export default class ValueOf extends React.Component<
     const result = this.props.contextData.xpath(
       this.props.select || "node()",
       this.props.contextNode,
-      XPathDataType.OrderedNodeList
+      XPathDataType.Any
     );
-    return result
-      .map((node) => {
-        return node.nodeValue;
-      })
-      .join(this.props.separator || "");
+    if (Array.isArray(result)) {
+      return result
+        .map((node) => {
+          return node.nodeValue;
+        })
+        .join(this.props.separator || "");
+    } else {
+      return result;
+    }
   }
 }
