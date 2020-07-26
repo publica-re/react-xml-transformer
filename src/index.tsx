@@ -7,6 +7,7 @@ import If from "./If";
 import ForEach from "./ForEach";
 import Choose from "./Choose";
 import { Context } from "./Utils/Context";
+import { XPathDataType } from "./Utils/Types";
 
 export default {
   ApplyTemplates,
@@ -18,4 +19,5 @@ export default {
   ForEach,
   Choose,
   Context,
+  XPathDataType,
 };
