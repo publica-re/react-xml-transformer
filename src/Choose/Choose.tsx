@@ -70,7 +70,7 @@ export default class Choose extends React.Component<ChooseProps, ChooseState> {
    * @returns {React.ReactNode}
    */
   render(): React.ReactNode {
-    for (let opt of this.props.cases) {
+    for (const opt of this.props.cases) {
       const result = this.props.contextData.xpath(
         opt.test,
         this.props.contextNode,
