@@ -1,8 +1,200 @@
-<root xmlns="https://example.com/ns" xmlns:p="https://example.com/ns">
-  <para>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere sint ipsa reprehenderit exercitationem? Inventore ea quidem sapiente beatae nobis commodi enim incidunt, sit sequi? Consectetur sed sapiente officia in ipsa.</para>
-  <title clicked="You clicked me!">Click me!</title>
+<doc xmlns="https://example.com/ns" xmlns:p="https://example.com/ns">
+  <title>Welcome to <term>react-xml-transformer</term> !</title>
   <figure>
-    <img src="https://dummyimage.com/600x400/000/fff" />
+    <img src="italy.png" />
     <title>A dummy image</title>
   </figure>
-</root>
+  <para>Everything on this page is rendered using our software<footnote><term>react-xml-transformer</term>,
+    see <link to="https://github.com/publica-re/react-xml-transformer">GitHub</link> and the
+    <link to="https://react-xml-transformer.publica.re">documentation</link>.</footnote>, based
+    on the file <link to="#source">below</link>.</para>
+  <section>
+    <title>What is it?</title>
+    <para><term>react-xml-transformer</term> is a <term>XML</term> transformer tool, analog to <term>XSLT</term>. 
+      We aim to provide a powerful environment to enable <term>XML</term> rendering <emph>in real time</emph>.</para>
+    <para>You have to be aware that it is probably slower that its the competing <term>SaxonJS</term> or built-in,
+    <term>XSLTProcessor</term>, but they have one big drawback: they're not able to render in realtime (or, maybe 
+    more precisely, they are not able to re-render parts of a document).</para>
+    <question value="Why not just use React?">Glad you asked. When you try first to render <term>XML</term>, you 
+    may try to iterate on the DOM tree and choose the correct component to apply at the right time. But you soon
+    realize that, as the codebase grows, it truely becomes a mess. And don't even try to think about mutating nodes
+    around.</question>
+    <question value="How does it work?">As <term>XSLT</term> does, we rely on the concept of <emph>template</emph>
+    in order to achieve our needs. Templates are just React components, that are registered in a global <term>context</term>,
+    which allows to perform requests based on <term>XPath</term> in order to determine the correct template for a node.</question>
+  </section>
+  <section>
+    <title><term>react-xml-transformer</term> 101</title>
+    <para>Let's assume your <file>document.xml</file> looks so</para>
+    <code lang="xml"><![CDATA[<data>
+    <head>Hello world <emoji code="thinking" /></head>
+    <content>Lorem ipsum dolor sit amet consectetur adipisicing elit. <emoji code="happy" /> Sint magnam blanditiis magni doloribus repudiandae perspiciatis accusamus, architecto id totam error animi sunt dicta sapiente, incidunt corrupti reiciendis quos itaque voluptas?</content>
+</data>]]></code>
+    <para>and you want the output to look so</para>
+    <render><data>
+    <head>Hello world <emoji code="thinking" /></head>
+    <content>Lorem ipsum dolor sit amet consectetur adipisicing elit. <emoji code="happy" /> Sint magnam blanditiis magni doloribus repudiandae perspiciatis accusamus, architecto id totam error animi sunt dicta sapiente, incidunt corrupti reiciendis quos itaque voluptas?</content>
+  </data></render>
+    <divider />
+    <para>The first step is to define a context, which is easy: create a new <file>context.ts</file> with the following content:</para>
+    <code lang="typescript"><![CDATA[import Transformer from "react-xml-transformer";
+const ctx = new Transformer.Context();
+export default ctx;
+]]></code>
+  <para>then, in your <file>App.ts</file>, import <term>Transformer.Stylehseet</term> and render it in your main component:</para>
+    <code lang="typescript"><![CDATA[import Transformer from "react-xml-transformer";
+import ctx from "./context";
+import doc from "./document.xml";
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Transformer.Stylesheet
+            contextData={ctx}
+            contextDocument={doc}
+          />
+    );
+  }
+}
+]]></code>
+  <para>and, assuming your <term>XML</term> is located in <file>document.xml</file> you are now ready to start rocking !<footnote>
+  If not, there are various ways to import a <term>XML</term> document in a JavaScript file. Just be aware that we require a 
+  valid <term>DOM</term> to work, but <link to="https://developer.mozilla.org/fr/docs/Web/API/DOMParser">DOMParser</link> lets you 
+  achieve that easily.</footnote></para>
+  <para>So let's get started with our first template! First, I have the habit to create an <file>EntryPoint.ts</file> to match the
+  <term>XMLDocument</term>, that just applied the right template for the root element. Once again, we have to import our context.</para>
+  <code lang="typescript"><![CDATA[import * as React from "react";
+import Transformer from "react-xml-transformer";
+import ctx from "./context";
+
+export default class EntryPoint extends Transformer.Template {
+  render() {
+    return <Transformer.ApplyTemplates {...this.ctx} />;
+  }
+}
+
+ctx.register(EntryPoint, { path: "/" });]]></code>
+  <para>Notice how, at the end, we call <term>ctx.register</term> in order to let the other components that there is this new 
+  template available. This register function takes an object as second parameter, which either take a path or a name to register
+  the template. Templates registered by name can later be called by <term>Transformer.CallTemplate</term>. There are two other 
+  options available: <term>mode</term>, which allows to process the same node in several different ways depending on the context,
+  and <term>priority</term>, which determines which template will be called if more than one matches the current node.</para>
+  <para>But you should be pretty disappointed, because if you load this page, you will witness an error <term>No stylesheet</term>
+  displayed in your browser. That's because we need to import each of our templates in our <file>App.tsx</file>:</para>
+  <code lang="typescript"><![CDATA[...
+import ctx from "./context";
+import doc from "./document.xml";
+
+import "./EntryPoint";
+
+export default class App extends React.Component {
+  ...]]></code>
+  <divider />
+  <para>Let's then write a transformer for our root element ! Just like you would do with a standard React app, you just have to 
+  provide a render method, but you just have to replace your <term>{this.props.children}</term> by a <term><![CDATA[<Transformer.ApplyTemplates {...this.ctx}/>]]> !</term></para>
+  <code lang="typescript"><![CDATA[import * as React from "react";
+import ctx from "../context";
+import Transformer from "react-xml-transformer";
+
+export default class Data extends Transformer.Template {
+  render() {
+    return <section><Transformer.ApplyTemplates {...this.ctx}/></section>;
+  }
+}
+
+ctx.register(Data, { path: "data" });
+]]></code>
+  <para>Now go ahead and implement <term>&lt;head&gt;</term> and <term>&lt;content&gt;</term>, that should be easy!</para>
+  <divider />
+  <para><term>&lt;emoji&gt;</term> is a bit harder, then it takes a <term>code</term> emoji, which defines how it will look
+  like. Now we have two options: either working with a <term>Transformer.If</term> or a <term>Transformer.Choose</term>.
+  The first attempt may look so</para>
+  <code language="typescript"><![CDATA[import * as React from "react";
+import ctx from "./context";
+import Transformer from "react-xml-transformer";
+
+export default class Emoji extends Transformer.Template {
+  render() {
+    return (
+      <React.Fragment>
+        <Transformer.If {...this.ctx} test="boolean(string(./@code)='happy')">😊</Transformer.If>
+        <Transformer.If {...this.ctx} test="boolean(string(./@code)='thinking')">🤔</Transformer.If>
+      </React.Fragment>
+    );
+  }
+}
+
+ctx.register(Emoji, { path: "emoji" });
+]]>
+  </code>
+  <para>but that's quite verbose, and it will get messy once we add more emojis. Or maybe you wrote cases with a <term>Transformer.Choose</term> </para>
+  <code language="typescript"><![CDATA[import * as React from "react";
+import ctx from "../context";
+import Transformer from "react-xml-transformer";
+
+export default class Emoji extends Transformer.Template {
+  render() {
+    return (
+      <Transformer.Choose {...this.ctx}
+        cases={[
+          { test: "boolean(string(./@code)='happy')", node: "😊", },
+          { test: "boolean(string(./@code)='thinking')", node: "🤔", },
+        ]}
+        otherwise={"😁"}
+      />
+    );
+  }
+}
+
+ctx.register(Emoji, { path: "emoji" });
+]]></code>
+  <para>But nothing stops you from writing true TypeScript code:</para>
+  <code language="typescript"><![CDATA[import * as React from "react";
+import ctx from "../context";
+import Transformer from "react-xml-transformer";
+
+export default class Emoji extends Transformer.Template {
+  render() {
+    const emojis = { happy: "😊", thinking: "🤔", };
+    return (
+      <Transformer.Choose {...this.ctx}
+        cases={Object.entries(emojis).map(([name, emoji]) => ({
+          test: `boolean(string(./@code)='${name}')`,
+          node: emoji,
+        }))}
+        otherwise={"😁"}
+      />
+    );
+  }
+}
+
+ctx.register(Emoji, { path: "emoji" });
+]]></code>
+  <para>and now you don't have boundaries on how many the emojis you can add ! Let's test that: </para>
+  <render><emoji code="happy" /><emoji code="thinking" /><emoji code="rollingeyes" /><emoji code="toohappy" /></render>
+  <para>Well, I think that's it. I'll let you take a look at the docs if you need anything more, but for now I'll let you
+  play a little with the interactive module.</para>
+  </section>
+  <section>
+    <title>Playground</title>
+    <para>In the elements below, you can play with our real-time rendering tools. Every action you perform here are directly 
+    transformed in the source document, as you can <link to="#source">see</link>. </para>
+    <playground>
+      <para>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint magnam blanditiis magni doloribus repudiandae 
+      perspiciatis accusamus, architecto id totam error animi sunt dicta sapiente, incidunt corrupti reiciendis 
+      quos itaque voluptas?</para>
+    </playground>
+  </section>
+  <section>
+    <title>Go futher</title>
+    <para>To discover more, I invite you to take a look at the 
+    <link to="https://github.com/publica-re/react-xml-transformer/tree/master/example">source code</link> of this demonstration, 
+    or go deeper in the <link to="https://react-xml-transformer">documentation</link>.</para>
+    <para>If you have time to spare, I kindly invite you to take a look at the 
+    <link to="https://github.com/publica-re/react-xml-transformer">GitHub repository</link> and contribute if you are able to !</para>
+  </section>
+  <section>
+    <title>XML source of this page</title>
+    <showSource id="source" />
+  </section>
+</doc>

@@ -7,7 +7,7 @@ export default class Text extends Transformer.Template {
     return (
       <Transformer.If {...this.ctx} test="normalize-space()!=''">
         <span>
-          <Transformer.ValueOf {...this.ctx} select="." />
+          <Transformer.ValueOf {...this.ctx} select="string(.)" />
         </span>
       </Transformer.If>
     );
