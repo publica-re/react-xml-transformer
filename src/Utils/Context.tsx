@@ -282,7 +282,7 @@ export class Context {
     });
   }
 
-  toString(node: React.ReactElement): stringZ {
+  toString(node: React.ReactElement): string {
     return ReactDOMServer.renderToString(node);
   }
 
