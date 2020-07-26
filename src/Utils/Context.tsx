@@ -185,7 +185,7 @@ export class Context {
       this.__nsResolver(doc.documentElement),
       resultType
     );
-    switch (resultType) {
+    switch (resultType !== XPathDataType.Any ? resultType : result.resultType) {
       case XPathDataType.Any:
         return (
           result.booleanValue ||
@@ -218,6 +218,7 @@ export class Context {
           .map((_, i) => result.snapshotItem(i))
           .filter((node) => node !== null) as Node[];
     }
+    return null;
   }
 
   /**
