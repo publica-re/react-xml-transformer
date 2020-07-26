@@ -47,8 +47,13 @@ export function computeXPathFromElement(contextNode: Node): XPath {
         }
         segments.unshift(`text()[${nth}]`);
         break;
-      case Node.PROCESSING_INSTRUCTION_NODE:
       case Node.COMMENT_NODE:
+        for (; sibling !== null; sibling = sibling.previousSibling) {
+          if (sibling.nodeType === Node.COMMENT_NODE) nth++;
+        }
+        segments.unshift(`comment()[${nth}]`);
+        break;
+      case Node.PROCESSING_INSTRUCTION_NODE:
       case Node.DOCUMENT_TYPE_NODE:
         throw TypeError(
           `react-xml-transformer: you shouldn't try to render the XPath of a comment node and/or a processing instruction.`
