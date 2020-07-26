@@ -36,7 +36,7 @@ export interface ForEachProps {
    * The child to be rendered.
    *
    */
-  do: (ctx: { contextData: Context; contextNode: Node }) => React.ReactChildren;
+  do: (ctx: { contextData: Context; contextNode: Node }) => React.ReactNode;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
