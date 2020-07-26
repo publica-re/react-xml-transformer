@@ -1,6 +1,7 @@
 import * as React from "react";
 import { XPath, XPathDataType } from "../Utils/Types";
 import { Context } from "../Utils/Context";
+import Updatable from "../Updatable";
 
 /**
  * The properties the pass to `ApplyTemplates`
@@ -42,7 +43,7 @@ export interface ApplyTemplatesState {}
  *
  * It should be called from a `Template` as `<Transformer.ApplyTemplates {...this.ctx} select={SELECT} />` (`this.ctx` is defined automatically).
  */
-export default class ApplyTemplates extends React.Component<
+export default class ApplyTemplates extends Updatable<
   ApplyTemplatesProps,
   ApplyTemplatesState
 > {

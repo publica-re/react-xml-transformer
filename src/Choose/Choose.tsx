@@ -1,6 +1,7 @@
 import * as React from "react";
 import { XPath, XPathDataType } from "../Utils/Types";
 import { Context } from "../Utils/Context";
+import Updatable from "../Updatable";
 
 /**
  * A test case
@@ -61,7 +62,7 @@ export interface ChooseState {}
  * It should be called from a `Template` as `<Transformer.Choose {...this.ctx} cases={...} otherwise={...} />` (`this.ctx` is defined automatically).
  *
  */
-export default class Choose extends React.Component<ChooseProps, ChooseState> {
+export default class Choose extends Updatable<ChooseProps, ChooseState> {
   /**
    * Chooses the first node whoose test succeeds.
    *

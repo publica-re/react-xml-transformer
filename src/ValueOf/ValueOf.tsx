@@ -43,10 +43,7 @@ export interface ValueOfState {}
  *
  * It should be called from a `Template` as `<Transformer.ValueOf {...this.ctx} select={SELECT} />` (`this.ctx` is defined automatically).
  */
-export default class ValueOf extends React.Component<
-  ValueOfProps,
-  ValueOfState
-> {
+export default class ValueOf extends Updatable<ValueOfProps, ValueOfState> {
   /**
    * Renders the target nodes values.
    *

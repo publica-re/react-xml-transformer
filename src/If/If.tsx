@@ -1,6 +1,7 @@
 import * as React from "react";
 import { XPath, XPathDataType } from "../Utils/Types";
 import { Context } from "../Utils/Context";
+import Updatable from "../Updatable";
 
 /**
  * The properties the pass to `If`
@@ -43,7 +44,7 @@ export interface IfState {}
  * It should be called from a `Template` as `<Transformer.If {...this.ctx} test={TEST}>children</Transformer.If>` (`this.ctx` is defined automatically).
  *
  */
-export default class If extends React.Component<IfProps, IfState> {
+export default class If extends Updatable<IfProps, IfState> {
   /**
    * Renders the desired content if the test succeeds, else return null.
    *

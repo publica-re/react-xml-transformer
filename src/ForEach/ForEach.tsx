@@ -1,6 +1,7 @@
 import * as React from "react";
 import { XPath, XPathDataType } from "../Utils/Types";
 import { Context } from "../Utils/Context";
+import Updatable from "../Updatable";
 
 /**
  * The properties the pass to `ForEach`
@@ -57,10 +58,7 @@ export interface ForEachState {}
  * }/>```
  *
  */
-export default class ForEach extends React.Component<
-  ForEachProps,
-  ForEachState
-> {
+export default class ForEach extends Updatable<ForEachProps, ForEachState> {
   /**
    * Returns the current context
    *

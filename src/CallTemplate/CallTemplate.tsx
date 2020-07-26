@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Context } from "../Utils/Context";
+import Updatable from "../Updatable";
 
 /**
  * The properties the pass to `CallTemplate`
@@ -42,7 +43,7 @@ export interface CallTemplateState {}
  * It should be called from a `Template` as `<Transformer.CallTemplate {...this.ctx} name={NAME} />` (`this.ctx` is defined automatically).
  *
  */
-export default class CallTemplate extends React.Component<
+export default class CallTemplate extends Updatable<
   CallTemplateProps,
   CallTemplateState
 > {
