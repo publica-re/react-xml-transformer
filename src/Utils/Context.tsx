@@ -1,6 +1,7 @@
 import React from "react";
 import Template from "../Template";
 import { XPath, XPathDataType } from "./Types";
+import ReactDOMServer from "react-dom/server";
 
 interface InternalTemplate {
   template: typeof Template;
@@ -279,6 +280,10 @@ export class Context {
       mode: options.mode,
       priority: options.priority,
     });
+  }
+
+  toString(node: React.ReactElement): stringZ {
+    return ReactDOMServer.renderToString(node);
   }
 
   /**
