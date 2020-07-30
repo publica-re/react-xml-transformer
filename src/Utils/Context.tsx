@@ -1,10 +1,13 @@
 import React from "react";
-import Template from "../Template";
 import { XPath, XPathDataType } from "./Types";
 import ReactDOMServer from "react-dom/server";
+import { TemplateProps, TemplateState } from "../Template/Template";
+
+type TemplateType = React.ComponentClass<TemplateProps, TemplateState>;
+type MemoTemplate = React.MemoExoticComponent<TemplateType>;
 
 interface InternalTemplate {
-  template: typeof Template;
+  template: TemplateType;
   path?: XPath;
   mode?: string;
   name?: string;
@@ -228,7 +231,7 @@ export class Context {
    * @param {string} [mode] a rendering mode
    * @returns {typeof Template | null} returns a renderable template if a match was found, null otherwise
    */
-  getTemplateByNode(contextNode: Node, mode?: string): typeof Template | null {
+  getTemplateByNode(contextNode: Node, mode?: string): MemoTemplate | null {
     const candidateTemplates = this.sortedTemplate().filter(
       (template) => template.mode === mode && template.path !== undefined
     );
@@ -241,7 +244,7 @@ export class Context {
       );
       const match = allNodes.find((n) => Object.is(n, contextNode));
       if (match) {
-        return template.template;
+        return React.memo(template.template);
       }
     }
     return null;
@@ -254,7 +257,7 @@ export class Context {
    * @param {string} [mode] a rendering mode
    * @returns {typeof Template | null} returns a renderable template if a match was found, null otherwise
    */
-  getTemplateByName(name: string, mode?: string): typeof Template | null {
+  getTemplateByName(name: string, mode?: string): TemplateType | null {
     return (
       this.sortedTemplate().find(
         (template) => template.name === name && template.mode === mode
@@ -269,7 +272,7 @@ export class Context {
    * @param {({ path: XPath; mode?: string; priority?: number } | { name: string; mode?: string; priority?: number })} options see function documentation
    */
   register(
-    template: typeof Template,
+    template: TemplateType,
     options:
       | { path: XPath; mode?: string; priority?: number }
       | { name: string; mode?: string; priority?: number }
